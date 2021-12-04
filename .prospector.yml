@@ -1,0 +1,26 @@
+output-format: text
+
+strictness: veryhigh
+
+doc-warnings: true
+member-warnings: true
+test-warnings: true
+
+autodetect: false
+
+max-line-length: 79
+
+bandit:
+  run: true
+
+mccabe:
+  options:
+    max-complexity: 10
+
+pep8:
+  full: true
+
+pylint:
+  disable:
+    - C0326
+    - C0330
