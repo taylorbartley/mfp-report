@@ -1,0 +1,3 @@
+RulesToSuppress:
+- id: W47
+  reason: No need for encryption here.
