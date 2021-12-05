@@ -1,6 +1,5 @@
 {
   // "image": "cdk:latest",
-  "image": "taylorbartley/aws-cdk:latest",
   "extensions": [
     "adammaras.overtype",
     "aws-scripting-guy.cform",
@@ -16,12 +15,16 @@
     "redhat.vscode-yaml",
     "tuxtina.json2yaml"
   ],
+  "image": "taylorbartley/aws-cdk:latest",
   "mounts": [
     "source=cache-${localWorkspaceFolderBasename},target=/mounts/cache,type=volume",
     "source=history-${localWorkspaceFolderBasename},target=/mounts/history,type=volume"
   ],
-  "postCreateCommand": "mkdir -p /mounts/cache/node_modules && ln -fs /mounts/cache/node_modules ${containerWorkspaceFolder}/ ",//&& pip install -r req.txt",
-  "runArgs": ["--volume", "${localEnv:HOME}/.aws:/home/dev/.aws"],
+  "postCreateCommand": "mkdir -p /mounts/cache/node_modules && ln -fs /mounts/cache/node_modules ${containerWorkspaceFolder}/ && pip install -r requirements.txt",
+  "runArgs": [
+    "--volume",
+    "${localEnv:HOME}/.aws:/home/dev/.aws"
+  ],
   "settings": {
     "[json]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -36,7 +39,9 @@
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[python]": {
-      "editor.rulers": [79]
+      "editor.rulers": [
+        79
+      ]
     },
     "[yaml]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -46,7 +51,7 @@
     "cfnLint.enableAutocomplete": true,
     "cfnLint.ignoreRules": [],
     "cfnLint.overrideSpecPath": "",
-    "cfnLint.path": "/home/dev/.local/bin/cfn-lint",
+    "cfnLint.path": "/home/dev/bin/cfn-lint",
     "cfnLint.validateUsingJsonSchema": true,
     // "cfnNagLint.allowSuppression": true,
     // "cfnNagLint.blacklistPath": "",
@@ -64,7 +69,9 @@
     "editor.formatOnType": false,
     "editor.insertSpaces": true,
     "editor.quickSuggestions": true,
-    "editor.rulers": [80],
+    "editor.rulers": [
+      80
+    ],
     "editor.tabSize": 4,
     "files.autoGuessEncoding": false,
     "files.encoding": "utf8",
@@ -97,7 +104,7 @@
     "markdownlint.ignore": [],
     "markdownlint.run": "onSave",
     "python.experiments.enabled": false,
-    "python.formatting.blackPath": "/home/dev/.local/bin/black",
+    "python.formatting.blackPath": "/home/dev/bin/black",
     "python.formatting.provider": "black",
     "python.jediPath": "",
     "python.languageServer": "Jedi",
@@ -107,18 +114,18 @@
     "python.linting.lintOnSave": true,
     "python.linting.mypyEnabled": false,
     "python.linting.prospectorEnabled": true,
-    "python.linting.prospectorPath": "/home/dev/.local/bin/prospector",
+    "python.linting.prospectorPath": "/home/dev/bin/prospector",
     "python.linting.pycodestyleEnabled": false,
     "python.linting.pydocstyleEnabled": false,
     "python.linting.pylamaEnabled": false,
     "python.linting.pylintEnabled": false,
     "python.pythonPath": "python",
-    "python.sortImports.path": "/home/dev/.local/bin/isort",
+    "python.sortImports.path": "/home/dev/bin/isort",
     "python.testing.autoTestDiscoverOnSaveEnabled": false, // TODO
     "python.testing.nosetestsEnabled": false,
     "python.testing.promptToConfigure": false,
     "python.testing.pytestEnabled": false, // TODO
-    "python.testing.pytestPath": "/home/dev/.local/bin/pytest",
+    "python.testing.pytestPath": "/home/dev/bin/pytest",
     "python.testing.unittestEnabled": false,
     "telemetry.enableTelemetry": false,
     "terminal.explorerKind": "integrated",
@@ -127,7 +134,9 @@
     "terminal.integrated.profiles.linux": {
       "bash": {
         "path": "/bin/bash",
-        "args": ["--login"]
+        "args": [
+          "--login"
+        ]
       }
     },
     "yaml.completion": true,
