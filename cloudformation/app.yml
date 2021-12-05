@@ -1,0 +1,106 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: MFP Reminder
+    Author: Taylor Bartley
+    SpdxLicenseId: Apache-2.0
+    LicenseUrl: ../LICENSE
+    ReadmeUrl: ../README.md
+    HomePageUrl: https://github.com/taylorbartley/mfp-report
+    SemanticVersion: 0.1.0
+    SourceCodeUrl: https://github.com/taylorbartley/mfp-report
+
+Parameters:
+  Recipients:
+    Type: String
+
+  Environment:
+    Type: String
+    AllowedValues:
+      - Dev
+      - Prod
+
+Resources:
+  FunctionMfpReminder:
+    Type: AWS::Serverless::Function
+    Properties:
+      Architectures:
+        - arm64
+      CodeUri: ../python
+      Description: MFP reminder function.
+      Environment:
+        Variables:
+          TOPIC_ARN: !Ref Topic
+      Events:
+        ScheduleEvent:
+          Type: Schedule
+          Properties:
+            Enabled: true
+            Schedule: cron(0 2 * * ? *)
+      Handler: simple_request.main
+      MemorySize: 128
+      PackageType: Zip
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - sns:publish
+              Resource: !Ref Topic
+      Runtime: python3.9
+      Tags:
+        Application: !Sub MFP-Reminder-${Environment}
+        Environement: Dev
+      Timeout: 10
+
+  Logs:
+    Type: AWS::Logs::LogGroup
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${FunctionMfpReminder}
+      RetentionInDays: 14
+      Tags:
+        - Key: Application
+          Value: !Sub MFP-Reminder-${Environment}
+        - Key: Environement
+          Value: !Ref Environment
+
+  Topic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: MFP Reminder
+  Subscription:
+    Type: AWS::SNS::Subscription
+    Properties:
+      Endpoint: !Ref Recipients
+      Protocol: email
+      TopicArn: !Ref Topic
+
+  PolicyTopic:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics:
+        - !Ref Topic
+      PolicyDocument:
+        Version: 2012-10-17
+        Id: __default_policy_ID
+        Statement:
+          - Sid: __default_statement_ID
+            Effect: Allow
+            Principal:
+              AWS: "*"
+            Action:
+              - SNS:Publish
+              - SNS:Subscribe
+            Resource: !Ref Topic
+            Condition:
+              StringEquals:
+                AWS:SourceOwner: !Ref AWS::AccountId
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: F18
+            reason: Topic policies are just terrible.
