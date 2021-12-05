@@ -19,7 +19,8 @@
         "source=cache-${localWorkspaceFolderBasename},target=/mounts/cache,type=volume",
         "source=history-${localWorkspaceFolderBasename},target=/mounts/history,type=volume"
     ],
-    "postCreateCommand": "mkdir -p /mounts/cache/node_modules && ln -fs /mounts/cache/node_modules ${containerWorkspaceFolder}/ && pip install -r requirements.txt",
+    // "postCreateCommand": "mkdir -p /mounts/cache/node_modules && ln -fs /mounts/cache/node_modules ${containerWorkspaceFolder}/ && pip install -r requirements.txt",
+    "postCreateCommand": "pip install -r requirements.txt",
     "runArgs": ["--volume", "${localEnv:HOME}/.aws:/home/dev/.aws"],
     "settings": {
         "[json]": {
