@@ -1,5 +1,6 @@
 templates:
-  - templates/**/*.yml
+  - cloudformation/**/*.yml
+  - cloudformation/**/*.yaml
 include_checks:
   - I
 regions:
