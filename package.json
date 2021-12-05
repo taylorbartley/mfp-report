@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "aws-cdk": "2.0.0",
+    "markdownlint": "0.24.0",
+    "prettier": "2.3.2"
+  }
+}
