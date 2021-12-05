@@ -151,7 +151,7 @@
             "!Transform"
         ],
         "yaml.format.enable": false,
-        "yaml.hover": true,
+        "yaml.hover": false,
         "yaml.schemas": {},
         "yaml.schemaStore.enable": false,
         "yaml.validate": false

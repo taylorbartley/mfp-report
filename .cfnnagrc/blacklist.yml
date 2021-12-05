@@ -1,3 +1,9 @@
 RulesToSuppress:
-- id: W47
+- id: W47 # Topic -> KMS Key.
   reason: No need for encryption here.
+- id: W84 # CloudWatchLogs LogGroup should specify a KMS Key Id to encrypt the log data
+  Reason: Don't tell me what to do.
+- id: W89 # Lambda functions should be deployed inside a VPC(W89)
+  Reason: Shut up, please.
+- id: W92 # Lambda functions should define ReservedConcurrentExecutions to reserve simultaneous executions(W92
+  Reason: Shut up, please.
