@@ -20,7 +20,15 @@ mccabe:
 pep8:
   full: true
 
+pep257:
+  disable:
+    - D100  # Missing docstring in public module
+    - D101  # Missing docstring in public class
+    - D102  # Missing docstring in public method
+    - D103  # Missing docstring in public function
+
 pylint:
   disable:
     - C0326
     - C0330
+    - C0114 # Missing module docstring
